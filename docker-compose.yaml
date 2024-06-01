@@ -4,6 +4,8 @@ services:
       context: ./web/
       dockerfile: Dockerfile
     container_name: spacedose-web
+    volumes:
+      - caddy_data:/data
     ports:
       - 80:80
       - 443:443
