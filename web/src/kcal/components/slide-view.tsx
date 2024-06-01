@@ -12,13 +12,6 @@ export const SlideView: FC<SlideViewProps> = ({show, close, children}) => (
   <AnimatePresence>
     {show && (
       <motion.div
-        drag='y'
-        dragConstraints={{top: 0}}
-        dragElastic={{top: 0}}
-        dragSnapToOrigin
-        onDragEnd={(_, info) => {
-          if (info.offset.y > 100) close();
-        }}
         initial={{top: '100vh'}}
         animate={{top: 0}}
         exit={{top: '100vh'}}
