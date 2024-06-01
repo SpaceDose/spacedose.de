@@ -24,7 +24,7 @@ const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
     >
       <Input field={fields.title()} label='Title' />
 
-      <div className='flex gap-2'>
+      <div className='max-w-screen flex gap-2'>
         <Input field={fields.kcal()} label='kcal per 100g' className='flex-1' />
         <Input field={fields.gram()} label='portion in g' className='flex-1' />
       </div>
