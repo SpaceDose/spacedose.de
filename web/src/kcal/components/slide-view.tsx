@@ -30,7 +30,7 @@ export const SlideView: FC<SlideViewProps> = ({show, close, children}) => {
           className='fixed z-50 flex h-screen w-screen flex-col overflow-hidden bg-white px-4 pb-4 text-slate-500'
         >
           <div
-            className='flex w-full cursor-pointer justify-center py-2'
+            className='flex w-full cursor-pointer justify-center py-4'
             onPointerDown={(event) => controls.start(event)}
             style={{touchAction: 'none'}}
           >
