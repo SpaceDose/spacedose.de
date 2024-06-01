@@ -25,8 +25,8 @@ const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
       <Input field={fields.title()} label='Title' />
 
       <div className='flex gap-2'>
-        <Input field={fields.kcal()} label='kcal per 100g' />
-        <Input field={fields.gram()} label='portion in g' />
+        <Input field={fields.kcal()} label='kcal per 100g' type='number' />
+        <Input field={fields.gram()} label='portion in g' type='number' />
       </div>
 
       <button className='rounded-lg bg-slate-500 px-2.5 py-1.5 font-bold text-white'>
