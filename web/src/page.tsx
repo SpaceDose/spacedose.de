@@ -9,7 +9,7 @@ type PageProps = {
 };
 
 export const Page: FC<PageProps> = ({title, className, children}) => (
-  <div className='flex h-screen flex-col overflow-hidden bg-black bg-blend-luminosity'>
+  <div className='flex h-full flex-col overflow-hidden bg-black bg-blend-luminosity'>
     <div className='flex h-14 items-center gap-3 bg-white/10 p-3 text-xl font-medium text-white'>
       <ArrowTrendingDownIcon className='h-full rounded-full bg-white p-1 text-orange-600' />
       {title}

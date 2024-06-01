@@ -1,4 +1,10 @@
-import {useCallback, useEffect, useState, type FC} from 'react';
+import {
+  type TouchEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+  type FC,
+} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Page} from '../page';
 import {type Meal, useDb} from '../provider/database';
@@ -57,21 +63,24 @@ export const Kcal: FC = () => {
     }
   }, [days, loadDay, maxDays]);
 
+  const handleScroll: TouchEventHandler<HTMLDivElement> = (e) => {
+    if (
+      e.currentTarget.scrollHeight - e.currentTarget.scrollTop ===
+      e.currentTarget.clientHeight
+    ) {
+      setMaxDays(maxDays + 7);
+    }
+  };
+
   return (
     <Page
-      title='KCal'
-      className='flex min-h-screen flex-col items-center justify-between gap-4'
+      title='KCal 2'
+      className='flex h-full flex-col items-center justify-between gap-4'
     >
       <div
         className='flex w-full flex-col overflow-y-auto'
-        onScroll={(e) => {
-          if (
-            e.currentTarget.scrollHeight - e.currentTarget.scrollTop ===
-            e.currentTarget.clientHeight
-          ) {
-            setMaxDays(maxDays + 7);
-          }
-        }}
+        onTouchMove={handleScroll}
+        onScroll={handleScroll}
       >
         {days
           ?.sort((a, b) => b.date.getTime() - a.date.getTime())
