@@ -12,6 +12,6 @@ RUN pnpm run build
 FROM caddy:2.8.1-alpine
 
 COPY --from=build /app/dist /usr/share/caddy
-COPY ~/Caddyfile /etc/caddy/Caddyfile
+COPY Caddyfile /etc/caddy/Caddyfile
 
-EXPOSE 80
+EXPOSE 80 443

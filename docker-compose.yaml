@@ -5,4 +5,5 @@ services:
       dockerfile: Dockerfile
     container_name: spacedose-web
     ports:
-      - 127.0.0.1:80:80
+      - 80:80
+      - 443:443
