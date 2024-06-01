@@ -24,9 +24,9 @@ const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
     >
       <Input field={fields.title()} label='Title' />
 
-      <div className='max-w-screen flex gap-2 overflow-hidden'>
-        <Input field={fields.kcal()} label='kcal per 100g' className='flex-1' />
-        <Input field={fields.gram()} label='portion in g' className='flex-1' />
+      <div className='flex gap-2'>
+        <Input field={fields.kcal()} label='kcal per 100g' />
+        <Input field={fields.gram()} label='portion in g' />
       </div>
 
       <button className='rounded-lg bg-slate-500 px-2.5 py-1.5 font-bold text-white'>
@@ -80,7 +80,7 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
         className='flex flex-col gap-2'
       >
         <Input field={fields.title()} label='Title' />
-        <DateInput label='Date' on={fields.date} />
+        <DateInput label='Date' on={fields.date} className='ml-auto' />
       </form>
 
       <hr />

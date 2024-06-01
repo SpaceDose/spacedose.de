@@ -16,7 +16,7 @@ export const SlideView: FC<SlideViewProps> = ({show, close, children}) => (
         animate={{top: 0}}
         exit={{top: '100vh'}}
         transition={{duration: 0.1}}
-        className='fixed z-50 flex h-screen w-screen flex-col overflow-hidden bg-white p-4 text-slate-500'
+        className='fixed z-50 flex size-full flex-col overflow-hidden bg-white p-4 text-slate-500'
       >
         <button className='ml-auto pb-4' onClick={() => close()}>
           <XMarkIcon className='w-6' />
