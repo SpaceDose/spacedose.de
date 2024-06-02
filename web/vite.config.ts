@@ -23,6 +23,7 @@ export default defineConfig({
         short_name: 'web',
         description: 'web',
         theme_color: '#242629',
+        background_color: '#242629',
       },
       injectManifest: {
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
