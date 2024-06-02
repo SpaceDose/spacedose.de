@@ -1,3 +1,4 @@
+import {type Day} from '../kcal/kcal';
 import {type Entry} from '../provider/database';
 
 export const getKCalFromEntry = (entry: Entry) =>
@@ -60,3 +61,14 @@ export const readableDate = (date: Date) => {
       });
   }
 };
+
+export const getKCalForDay = (day: Day) =>
+  day.meals.reduce(
+    (acc, curr) =>
+      acc +
+      curr.entries.reduce(
+        (accEntry, currEntry) => accEntry + getKCalFromEntry(currEntry),
+        0,
+      ),
+    0,
+  );

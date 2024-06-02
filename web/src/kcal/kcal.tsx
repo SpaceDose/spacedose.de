@@ -10,17 +10,18 @@ import {Page} from '../page';
 import {type Meal, useDb} from '../provider/database';
 import {
   getFrom,
-  getKCalFromEntry,
+  getKCalForDay,
   getUntil,
   isSameDay,
   readableDate,
 } from '../utils/kcal';
+import {DailyChart} from './components/daily-chart';
 import {FAB} from './components/fab';
 import {MealCard} from './components/meal-card';
 import {MealForm} from './components/meal-form';
 import {SlideView} from './components/slide-view';
 
-type Day = {
+export type Day = {
   date: Date;
   meals: Meal[];
 };
@@ -65,8 +66,8 @@ export const Kcal: FC = () => {
 
   const handleScroll: TouchEventHandler<HTMLDivElement> = (e) => {
     if (
-      e.currentTarget.scrollHeight - e.currentTarget.scrollTop ===
-      e.currentTarget.clientHeight
+      e.currentTarget.offsetHeight + e.currentTarget.scrollTop ===
+      e.currentTarget.scrollHeight
     ) {
       setMaxDays(maxDays + 7);
     }
@@ -74,9 +75,7 @@ export const Kcal: FC = () => {
 
   return (
     <Page className='flex h-full flex-col items-center justify-between gap-4'>
-      <div className='mx-12 my-6 flex items-center justify-center rounded-3xl border p-24 text-center text-sm font-thin text-orange-light'>
-        TODO: Show some data...
-      </div>
+      <DailyChart days={days} />
 
       <div
         className='flex w-full flex-col overflow-y-auto'
@@ -90,21 +89,9 @@ export const Kcal: FC = () => {
               key={`${day.date.toISOString()} ${index}`}
               className='border-t first:border-none'
             >
-              <div className='flex justify-between p-2 text-gray'>
+              <div className='flex justify-between px-4 py-2 text-gray'>
                 <p className='text-sm'>{readableDate(day.date)}</p>
-                <p className='text-sm text-purple'>
-                  {day.meals.reduce(
-                    (acc, curr) =>
-                      acc +
-                      curr.entries.reduce(
-                        (accEntry, currEntry) =>
-                          accEntry + getKCalFromEntry(currEntry),
-                        0,
-                      ),
-                    0,
-                  )}{' '}
-                  kcal
-                </p>
+                <p className='text-sm text-purple'>{getKCalForDay(day)} kcal</p>
               </div>
 
               {day.meals.map((meal) => (
@@ -114,6 +101,7 @@ export const Kcal: FC = () => {
                   update={() => loadDay(meal.date)}
                 />
               ))}
+
               {day.meals.length === 0 && (
                 <div className='p-3 text-gray'>No meals found...</div>
               )}
