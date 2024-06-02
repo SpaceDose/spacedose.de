@@ -55,7 +55,7 @@ export const SlideRow: FC<SlideRowProps> = ({left, right, children}) => {
   const [actionActive, setActionActive] = useState<boolean>(false);
 
   return (
-    <div className='w-full overflow-hidden'>
+    <div className='w-full shrink-0 overflow-hidden'>
       <motion.div
         drag='x'
         dragSnapToOrigin
