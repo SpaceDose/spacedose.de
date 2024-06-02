@@ -132,7 +132,7 @@ export const Kcal: FC = () => {
         }}
       />
 
-      <SlideView show={!!mealId} close={() => navigate('/kcal')}>
+      <SlideView show={!!mealId} close={() => navigate(-1)}>
         <MealForm update={(date) => loadDay(date)} />
       </SlideView>
     </Page>
