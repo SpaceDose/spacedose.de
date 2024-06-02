@@ -14,7 +14,7 @@ export const Input: FC<InputProps> = (props) => {
     <input
       {...field}
       className={twMerge(
-        'border-transparent h-10 w-full min-w-0 rounded-lg border bg-gray px-2 text-black',
+        'h-10 w-full min-w-0 rounded-lg border border-transparent bg-gray px-2 text-black',
         className,
       )}
       placeholder={label}
