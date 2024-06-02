@@ -7,6 +7,6 @@ export const Home: FC = () => (
     <Link to='/kcal' className='rounded-lg bg-orange-light p-3 text-black'>
       ⊂(◉‿◉)つ
     </Link>
-    <p className='text-sm font-thin'>0.0.5</p>
+    <p className='text-sm font-thin'>0.0.6</p>
   </Page>
 );

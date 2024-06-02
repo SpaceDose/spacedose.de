@@ -104,7 +104,9 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
               }}
             >
               <div className='flex size-full items-center justify-between px-2'>
-                <div>{entry.title ?? '-'}</div>
+                <div>
+                  {entry.title && entry.title.length > 0 ? entry.title : '-'}
+                </div>
                 <div>{getKCalFromEntry(entry)} kcal</div>
               </div>
             </SlideRow>

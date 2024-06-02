@@ -31,7 +31,7 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
       }}
     >
       <div className='flex justify-between px-2 font-semibold text-orange-light'>
-        <div>{meal.title}</div>
+        <div>{meal.title && meal.title.length > 0 ? meal.title : '-'}</div>
         <div>
           {meal?.entries.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0)}{' '}
           kcal
@@ -44,7 +44,7 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
             key={`${entry.title}-${index}`}
             className='flex w-full justify-between text-xs font-thin text-orange-light'
           >
-            <div>{entry.title ?? '-'}</div>
+            {entry.title && entry.title.length > 0 ? entry.title : '-'}
             <div>{getKCalFromEntry(entry)} kcal</div>
           </div>
         ))}

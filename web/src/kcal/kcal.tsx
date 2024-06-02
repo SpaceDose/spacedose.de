@@ -116,6 +116,7 @@ export const Kcal: FC = () => {
             date: new Date(Date.now()),
             entries: [],
           });
+          loadDay(new Date(Date.now()));
           navigate(`./${id}`);
         }}
       />
