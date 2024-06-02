@@ -73,10 +73,11 @@ export const Kcal: FC = () => {
   };
 
   return (
-    <Page
-      title='KCal 2'
-      className='flex h-full flex-col items-center justify-between gap-4'
-    >
+    <Page className='flex h-full flex-col items-center justify-between gap-4'>
+      <div className='mx-12 my-6 flex items-center justify-center rounded-3xl border p-24 text-center text-sm font-thin text-orange-light'>
+        TODO: Show some data...
+      </div>
+
       <div
         className='flex w-full flex-col overflow-y-auto'
         onTouchMove={handleScroll}
@@ -89,9 +90,9 @@ export const Kcal: FC = () => {
               key={`${day.date.toISOString()} ${index}`}
               className='border-t first:border-none'
             >
-              <div className='flex justify-between p-2 text-white/50'>
+              <div className='flex justify-between p-2 text-gray'>
                 <p className='text-sm'>{readableDate(day.date)}</p>
-                <p className='text-sm'>
+                <p className='text-sm text-purple'>
                   {day.meals.reduce(
                     (acc, curr) =>
                       acc +
@@ -114,7 +115,7 @@ export const Kcal: FC = () => {
                 />
               ))}
               {day.meals.length === 0 && (
-                <div className='p-3 text-white/25'>No meals found...</div>
+                <div className='p-3 text-gray'>No meals found...</div>
               )}
             </div>
           ))}

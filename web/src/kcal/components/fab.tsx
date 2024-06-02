@@ -8,9 +8,9 @@ type FABProps = {
 
 export const FAB: FC<FABProps> = ({onClick}) => (
   <button
-    className='fixed bottom-0 right-0 z-50 m-4 flex size-14 items-center justify-center rounded-full bg-slate-700 p-4 text-white shadow'
+    className='fixed bottom-0 right-0 z-50 m-4 flex size-14 items-center justify-center rounded-full bg-green-light p-4 text-green-dark shadow'
     onClick={onClick}
   >
-    <PlusIcon />
+    <PlusIcon className='w-full' />
   </button>
 );

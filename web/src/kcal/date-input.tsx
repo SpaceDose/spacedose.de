@@ -14,7 +14,7 @@ export const DateInput: FC<DateInputProps> = ({label, on, className}) => {
   return (
     <input
       className={twMerge(
-        'h-10 rounded-lg border px-2 text-slate-500',
+        'h-10 w-full rounded-lg border border-transparent bg-gray px-2 text-black',
         className,
       )}
       placeholder={label}

@@ -20,7 +20,7 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
           update();
         },
         Icon: TrashIcon,
-        color: 'red',
+        color: 'green',
       }}
       right={{
         action: () => {
@@ -30,7 +30,7 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
         color: 'orange',
       }}
     >
-      <div className='flex justify-between font-semibold'>
+      <div className='flex justify-between font-semibold text-orange-light'>
         <div>{meal.title}</div>
         <div>
           {meal?.entries.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0)}{' '}
@@ -42,7 +42,7 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
         {meal?.entries.map((entry, index) => (
           <div
             key={`${entry.title}-${index}`}
-            className='flex w-full justify-between text-sm font-thin'
+            className='flex w-full justify-between text-xs font-thin text-orange-light'
           >
             <div>{entry.title ?? '-'}</div>
             <div>{getKCalFromEntry(entry)} kcal</div>

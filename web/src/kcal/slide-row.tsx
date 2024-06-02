@@ -9,7 +9,7 @@ type Icon = React.ForwardRefExoticComponent<
   } & React.RefAttributes<SVGSVGElement>
 >;
 
-type Color = 'red' | 'orange';
+type Color = 'green' | 'orange' | 'purple';
 
 type SideButton = {
   action: () => void;
@@ -33,12 +33,18 @@ const Side: FC<{
     className={twMerge(
       'flex w-screen shrink-0 p-4',
       side === 'left' ? 'justify-end' : 'justify-start',
-      color === 'red' &&
-        (actionActive ? 'bg-red-500 text-red-900' : 'bg-red-900 text-red-500'),
       color === 'orange' &&
         (actionActive
-          ? 'bg-orange-500 text-orange-900'
-          : 'bg-orange-900 text-orange-500'),
+          ? 'bg-orange-dark text-orange-light'
+          : 'bg-orange-light text-orange-dark'),
+      color === 'green' &&
+        (actionActive
+          ? 'bg-green-light text-green-dark'
+          : 'bg-green-dark text-green-light'),
+      color === 'purple' &&
+        (actionActive
+          ? 'bg-purple-dark text-purple-light'
+          : 'bg-purple-light text-purple-dark'),
     )}
   >
     <Icon className='w-5' />
@@ -78,9 +84,7 @@ export const SlideRow: FC<SlideRowProps> = ({left, right, children}) => {
           side='left'
         />
 
-        <div className='flex w-screen shrink-0 flex-col gap-2 p-2.5'>
-          {children}
-        </div>
+        <div className='flex w-screen shrink-0 flex-col p-2.5'>{children}</div>
 
         <Side
           Icon={right.Icon}

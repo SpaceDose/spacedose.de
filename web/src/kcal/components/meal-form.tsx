@@ -15,13 +15,15 @@ const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
 
   return (
     <form
-      className='flex flex-col gap-4'
+      className='flex flex-col gap-2 px-4'
       onSubmit={handleSubmit((entry) => {
         db.meals.update(meal, {...meal, entries: [...meal.entries, entry]});
         update();
         reset();
       })}
     >
+      <p className='text-sm font-thin'>Add a new entry</p>
+
       <Input field={fields.title()} label='Title' />
 
       <div className='flex gap-2'>
@@ -29,7 +31,7 @@ const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
         <Input field={fields.gram()} label='portion in g' type='number' />
       </div>
 
-      <button className='rounded-lg bg-slate-500 px-2.5 py-1.5 font-bold text-white'>
+      <button className='text-white mt-1 rounded-lg bg-purple px-2.5 py-1.5 font-bold text-purple-light'>
         Add
       </button>
     </form>
@@ -73,42 +75,40 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
   };
 
   return (
-    <div className='flex grow flex-col gap-4 overflow-hidden'>
+    <div className='flex grow flex-col gap-4 overflow-hidden pb-4'>
       <form
         autoFocus={meal?.title.length === 0}
         onBlur={submit}
-        className='flex flex-col gap-2'
+        className='flex flex-col gap-2 px-4'
       >
+        <p className='text-sm font-thin'>Meal</p>
         <Input field={fields.title()} label='Title' />
-        <DateInput label='Date' on={fields.date} className='ml-auto' />
+        <DateInput label='Date' on={fields.date} />
       </form>
 
-      <hr />
-
-      <div className='flex grow flex-col gap-2 overflow-y-auto'>
+      <div className='flex grow flex-col gap-2 overflow-y-auto border-y pt-4'>
+        <p className='px-4 text-sm font-thin'>Entries</p>
         {meal.entries.map((entry, index) => (
           <SlideRow
             key={`${entry.title}-${index}`}
             left={{
               action: () => removeEntry(entry),
-              color: 'red',
+              color: 'purple',
               Icon: TrashIcon,
             }}
             right={{
               action: () => removeEntry(entry),
-              color: 'red',
+              color: 'purple',
               Icon: TrashIcon,
             }}
           >
-            <div className='flex w-full justify-between px-2 font-light'>
+            <div className='flex size-full items-center justify-between px-2'>
               <div>{entry.title ?? '-'}</div>
               <div>{getKCalFromEntry(entry)} kcal</div>
             </div>
           </SlideRow>
         ))}
       </div>
-
-      <hr />
 
       <NewEntryForm meal={meal} update={() => update(meal.date)} />
     </div>
