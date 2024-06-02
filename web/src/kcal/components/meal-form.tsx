@@ -86,28 +86,30 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
         <DateInput label='Date' on={fields.date} />
       </form>
 
-      <div className='flex grow flex-col gap-2 overflow-y-auto border-y pt-4'>
+      <div className='flex grow flex-col overflow-hidden border-y pt-4'>
         <p className='px-4 text-sm font-thin'>Entries</p>
-        {meal.entries.map((entry, index) => (
-          <SlideRow
-            key={`${entry.title}-${index}`}
-            left={{
-              action: () => removeEntry(entry),
-              color: 'purple',
-              Icon: TrashIcon,
-            }}
-            right={{
-              action: () => removeEntry(entry),
-              color: 'purple',
-              Icon: TrashIcon,
-            }}
-          >
-            <div className='flex size-full items-center justify-between px-2'>
-              <div>{entry.title ?? '-'}</div>
-              <div>{getKCalFromEntry(entry)} kcal</div>
-            </div>
-          </SlideRow>
-        ))}
+        <div className='flex flex-col overflow-y-auto'>
+          {meal.entries.map((entry, index) => (
+            <SlideRow
+              key={`${entry.title}-${index}`}
+              left={{
+                action: () => removeEntry(entry),
+                color: 'purple',
+                Icon: TrashIcon,
+              }}
+              right={{
+                action: () => removeEntry(entry),
+                color: 'purple',
+                Icon: TrashIcon,
+              }}
+            >
+              <div className='flex size-full items-center justify-between px-2'>
+                <div>{entry.title ?? '-'}</div>
+                <div>{getKCalFromEntry(entry)} kcal</div>
+              </div>
+            </SlideRow>
+          ))}
+        </div>
       </div>
 
       <NewEntryForm meal={meal} update={() => update(meal.date)} />
