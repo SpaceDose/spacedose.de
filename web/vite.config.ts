@@ -19,9 +19,9 @@ export default defineConfig({
         config: true,
       },
       manifest: {
-        name: 'web',
-        short_name: 'web',
-        description: 'web',
+        name: '⊂(◉‿◉)つ',
+        short_name: '⊂(◉‿◉)つ',
+        description: '⊂(◉‿◉)つ',
         theme_color: '#242629',
         background_color: '#242629',
       },

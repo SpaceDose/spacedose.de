@@ -19,7 +19,7 @@ export const DailyChart: FC<{days: Day[]}> = ({days}) => {
     (): AxisOptions<Day>[] => [
       {
         getValue: (day) => getKCalForDay(day),
-        elementType: 'area',
+        elementType: 'bar',
         show: true,
         tickCount: 1,
         showGrid: true,
