@@ -3,11 +3,11 @@ import {TrashIcon} from '@heroicons/react/24/outline';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {useEffect, type FC} from 'react';
 import {useParams} from 'react-router-dom';
+import {DateInput} from '../../components/date-input';
+import {Input} from '../../components/input';
+import {SlideRow} from '../../components/slide-row';
 import {type Entry, useDb, type Meal} from '../../provider/database';
 import {getKCalFromEntry} from '../../utils/kcal';
-import {DateInput} from '../date-input';
-import {SlideRow} from '../slide-row';
-import {Input} from './input';
 
 const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
   const db = useDb();

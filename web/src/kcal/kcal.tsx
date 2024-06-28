@@ -6,6 +6,8 @@ import {
   type FC,
 } from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
+import {FAB} from '../components/fab';
+import {SlideView} from '../components/slide-view';
 import {Page} from '../page';
 import {type Meal, useDb} from '../provider/database';
 import {
@@ -16,10 +18,8 @@ import {
   readableDate,
 } from '../utils/kcal';
 import {DailyChart} from './components/daily-chart';
-import {FAB} from './components/fab';
 import {MealCard} from './components/meal-card';
 import {MealForm} from './components/meal-form';
-import {SlideView} from './components/slide-view';
 
 export type Day = {
   date: Date;
@@ -91,7 +91,9 @@ export const Kcal: FC = () => {
             >
               <div className='flex justify-between px-4 py-2 text-gray'>
                 <p className='text-sm'>{readableDate(day.date)}</p>
-                <p className='text-sm text-purple'>{getKCalForDay(day)} kcal</p>
+                <p className='text-sm font-semibold text-orange-light'>
+                  {getKCalForDay(day)} kcal
+                </p>
               </div>
 
               {day.meals.map((meal) => (

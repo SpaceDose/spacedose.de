@@ -41,6 +41,12 @@ export const readableDate = (date: Date) => {
   const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
   const diffDays = Math.round((now.getTime() - d.getTime()) / oneDay);
 
+  const dateAsString = date.toLocaleDateString('de-DE', {
+    month: '2-digit',
+    day: '2-digit',
+    year: '2-digit',
+  });
+
   switch (diffDays) {
     case -1:
       return 'Tomorrow';
@@ -52,13 +58,9 @@ export const readableDate = (date: Date) => {
     case 3:
     case 4:
     case 5:
-      return weekdays[date.getDay()];
+      return `${weekdays[date.getDay()]} - ${dateAsString}`;
     default:
-      return date.toLocaleDateString('de-DE', {
-        month: '2-digit',
-        day: '2-digit',
-        year: '2-digit',
-      });
+      return dateAsString;
   }
 };
 

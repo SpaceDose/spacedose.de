@@ -1,9 +1,9 @@
 import {PencilIcon, TrashIcon} from '@heroicons/react/24/outline';
 import {type FC} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {SlideRow} from '../../components/slide-row';
 import {useDb, type Meal} from '../../provider/database';
 import {getKCalFromEntry} from '../../utils/kcal';
-import {SlideRow} from '../slide-row';
 
 export const MealCard: FC<{meal: Meal; update: () => void}> = ({
   meal,
@@ -30,8 +30,8 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
         color: 'orange',
       }}
     >
-      <div className='flex justify-between px-2 font-semibold text-orange-light'>
-        <div>{meal.title && meal.title.length > 0 ? meal.title : '-'}</div>
+      <div className='flex justify-between px-2 text-sm font-semibold text-purple-light'>
+        <div>{meal.title && meal.title.length > 0 ? meal.title : 'Other'}</div>
         <div>
           {meal?.entries.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0)}{' '}
           kcal
