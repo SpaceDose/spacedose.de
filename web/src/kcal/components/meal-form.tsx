@@ -10,7 +10,7 @@ import {SlideRow} from '../../components/slide-row';
 import {type Entry, useDb, type Meal} from '../../provider/database';
 import {getKCalFromEntry} from '../../utils/kcal';
 
-const NewEntryForm: FC<{
+const EntryForm: FC<{
   meal: Meal;
   entryIndex?: number;
   update: () => void;
@@ -154,7 +154,7 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
         </div>
       </div>
 
-      <NewEntryForm
+      <EntryForm
         meal={meal}
         entryIndex={selectedEntryIndex}
         update={() => {
