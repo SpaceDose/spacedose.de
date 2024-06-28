@@ -12,7 +12,7 @@ export const Home: FC = () => (
         ⊂(◉‿◉)つ
       </Link>
 
-      <p className='self-end px-2 text-sm font-thin'>0.0.7</p>
+      <p className='self-end px-2 text-sm font-thin'>0.0.8</p>
     </div>
   </Page>
 );

@@ -30,14 +30,16 @@ export const DailyChart: FC<{days: Day[]}> = ({days}) => {
   if (days.length === 0) return;
 
   const avg7Days =
-    days.map((day) => getKCalForDay(day)).reduce((prev, curr) => prev + curr) /
-    7;
+    days
+      .slice(0, 7)
+      .map((day) => getKCalForDay(day))
+      .reduce((prev, curr) => prev + curr) / 7;
 
   return (
     <div className='w-full p-4'>
       <div className='flex justify-between pb-1 text-sm text-gray'>
         <p>Last 7 days</p>
-        <p>avg. {avg7Days} kcal</p>
+        <p>avg. {Math.floor(avg7Days)} kcal</p>
       </div>
 
       <div className='h-64 w-full rounded-xl border border-orange-light'>
