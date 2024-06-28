@@ -1,38 +1,69 @@
 import {useFormBuilder} from '@atmina/formbuilder';
-import {TrashIcon} from '@heroicons/react/24/outline';
+import {TrashIcon, PencilIcon, XMarkIcon} from '@heroicons/react/24/outline';
 import {useLiveQuery} from 'dexie-react-hooks';
-import {useEffect, type FC} from 'react';
+import {useEffect, useState, type FC} from 'react';
 import {useParams} from 'react-router-dom';
+import {twMerge} from 'tailwind-merge';
 import {DateInput} from '../../components/date-input';
 import {Input} from '../../components/input';
 import {SlideRow} from '../../components/slide-row';
 import {type Entry, useDb, type Meal} from '../../provider/database';
 import {getKCalFromEntry} from '../../utils/kcal';
 
-const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
+const NewEntryForm: FC<{
+  meal: Meal;
+  entryIndex?: number;
+  update: () => void;
+}> = ({meal, entryIndex, update}) => {
   const db = useDb();
   const {fields, handleSubmit, reset} = useFormBuilder<Entry>();
+
+  useEffect(() => {
+    entryIndex !== undefined
+      ? reset(meal.entries[entryIndex])
+      : reset({title: '', gram: 0, kcal: 0});
+  }, [entryIndex, meal, reset]);
 
   return (
     <form
       className='flex flex-col gap-2 px-4'
       onSubmit={handleSubmit((entry) => {
-        db.meals.update(meal, {...meal, entries: [...meal.entries, entry]});
+        if (entryIndex) {
+          const newEntries = [...meal.entries];
+          newEntries[entryIndex] = entry;
+          db.meals.update(meal, {...meal, entries: newEntries});
+        } else {
+          db.meals.update(meal, {...meal, entries: [...meal.entries, entry]});
+        }
         update();
-        reset();
       })}
     >
-      <p className='text-sm font-thin'>Add a new entry</p>
+      <div className='flex items-center justify-between text-sm font-thin'>
+        <p>{entryIndex !== undefined ? 'Edit entry' : 'Add a new entry'}</p>
+
+        <button
+          type='button'
+          className={twMerge(
+            'p-1',
+            entryIndex !== undefined ? 'visible' : 'invisible',
+          )}
+          onClick={() => {
+            update();
+          }}
+        >
+          <XMarkIcon className='w-6' />
+        </button>
+      </div>
 
       <Input field={fields.title()} label='Title' />
 
       <div className='flex gap-2'>
-        <Input field={fields.kcal()} label='kcal per 100g' type='number' />
         <Input field={fields.gram()} label='portion in g' type='number' />
+        <Input field={fields.kcal()} label='kcal per 100g' type='number' />
       </div>
 
       <button className='text-white mt-1 rounded-lg bg-purple px-2.5 py-1.5 font-bold text-purple-light'>
-        Add
+        {entryIndex !== undefined ? 'Save' : 'Add'}
       </button>
     </form>
   );
@@ -41,6 +72,7 @@ const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
 export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
   const {mealId} = useParams();
   const db = useDb();
+  const [selectedEntryIndex, setSelectedEntryIndex] = useState<number>();
 
   const {fields, handleSubmit, setValue} = useFormBuilder<Meal>();
 
@@ -94,27 +126,42 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
               key={`${entry.title}-${index}`}
               left={{
                 action: () => removeEntry(entry),
-                color: 'purple',
+                color: 'green',
                 Icon: TrashIcon,
               }}
               right={{
-                action: () => removeEntry(entry),
-                color: 'purple',
-                Icon: TrashIcon,
+                action: () => setSelectedEntryIndex(index),
+
+                color: 'orange',
+                Icon: PencilIcon,
               }}
             >
               <div className='flex size-full items-center justify-between px-2'>
-                <div>
+                <p>
                   {entry.title && entry.title.length > 0 ? entry.title : '-'}
+                </p>
+
+                <div className='flex flex-col items-end'>
+                  <p>{getKCalFromEntry(entry)} kcal</p>
+
+                  <div className='self-end text-xs font-thin text-purple-light'>
+                    {entry.gram}g / {entry.kcal}kcal
+                  </div>
                 </div>
-                <div>{getKCalFromEntry(entry)} kcal</div>
               </div>
             </SlideRow>
           ))}
         </div>
       </div>
 
-      <NewEntryForm meal={meal} update={() => update(meal.date)} />
+      <NewEntryForm
+        meal={meal}
+        entryIndex={selectedEntryIndex}
+        update={() => {
+          update(meal.date);
+          setSelectedEntryIndex(undefined);
+        }}
+      />
     </div>
   );
 };

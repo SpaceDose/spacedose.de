@@ -91,7 +91,7 @@ export const Kcal: FC = () => {
             >
               <div className='flex justify-between px-4 py-2 text-gray'>
                 <p className='text-sm'>{readableDate(day.date)}</p>
-                <p className='text-sm font-semibold text-orange-light'>
+                <p className='text-sm font-bold text-purple-light'>
                   {getKCalForDay(day)} kcal
                 </p>
               </div>
