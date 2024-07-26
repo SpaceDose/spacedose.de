@@ -30,7 +30,7 @@ export const MealCard: FC<{meal: Meal; update: () => void}> = ({
         color: 'orange',
       }}
     >
-      <div className='flex justify-between px-2 text-sm font-semibold text-purple-light'>
+      <div className='flex justify-between px-2 text-sm text-orange-light'>
         <div>{meal.title && meal.title.length > 0 ? meal.title : 'Other'}</div>
         <div>
           {meal?.entries.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0)}{' '}

@@ -89,9 +89,9 @@ export const Kcal: FC = () => {
               key={`${day.date.toISOString()} ${index}`}
               className='border-t first:border-none'
             >
-              <div className='flex justify-between px-4 py-2 text-gray'>
-                <p className='text-sm'>{readableDate(day.date)}</p>
-                <p className='text-sm font-semibold text-orange-light'>
+              <div className='flex justify-between px-4 py-2 text-sm text-gray'>
+                <p>{readableDate(day.date)}</p>
+                <p className='font-bold text-purple-light'>
                   {getKCalForDay(day)} kcal
                 </p>
               </div>

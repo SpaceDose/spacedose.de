@@ -9,7 +9,7 @@ import {SlideRow} from '../../components/slide-row';
 import {type Entry, useDb, type Meal} from '../../provider/database';
 import {getKCalFromEntry} from '../../utils/kcal';
 
-const NewEntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
+const EntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
   const db = useDb();
   const {fields, handleSubmit, reset} = useFormBuilder<Entry>();
 
@@ -114,7 +114,7 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
         </div>
       </div>
 
-      <NewEntryForm meal={meal} update={() => update(meal.date)} />
+      <EntryForm meal={meal} update={() => update(meal.date)} />
     </div>
   );
 };
