@@ -2,12 +2,12 @@ FROM node:lts-alpine AS build
 
 WORKDIR /app
 
-COPY pnpm-lock.yaml package.json ./
-RUN npm install -g pnpm
-RUN pnpm install
+COPY yarn.lock package.json .yarnrc.yml ./
+RUN corepack enable
+RUN yarn
 
 COPY . .
-RUN pnpm run build
+RUN yarn build
 
 FROM caddy:2.8.1-alpine
 
