@@ -1,4 +1,3 @@
-import {type Day} from '../kcal/kcal';
 import {type Entry} from '../provider/database';
 
 export const getKCalFromEntry = (entry: Entry) =>
@@ -38,7 +37,7 @@ export const readableDate = (date: Date) => {
   now.setHours(12);
   d.setHours(12);
 
-  const oneDay = 24 * 60 * 60 * 1000; // hours*minutes*seconds*milliseconds
+  const oneDay = 24 * 60 * 60 * 1000; // hours * minutes * seconds * milliseconds
   const diffDays = Math.round((now.getTime() - d.getTime()) / oneDay);
 
   const dateAsString = date.toLocaleDateString('de-DE', {
@@ -64,13 +63,5 @@ export const readableDate = (date: Date) => {
   }
 };
 
-export const getKCalForDay = (day: Day) =>
-  day.meals.reduce(
-    (acc, curr) =>
-      acc +
-      curr.entries.reduce(
-        (accEntry, currEntry) => accEntry + getKCalFromEntry(currEntry),
-        0,
-      ),
-    0,
-  );
+export const getKCalForEntries = (entries: Entry[]) =>
+  entries.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0);

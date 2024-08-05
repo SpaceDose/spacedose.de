@@ -3,13 +3,12 @@ import {TrashIcon} from '@heroicons/react/24/outline';
 import {useLiveQuery} from 'dexie-react-hooks';
 import {useEffect, type FC} from 'react';
 import {useParams} from 'react-router-dom';
-import {DateInput} from '../../components/date-input';
 import {Input} from '../../components/input';
 import {SlideRow} from '../../components/slide-row';
 import {type Entry, useDb, type Meal} from '../../provider/database';
 import {getKCalFromEntry} from '../../utils/kcal';
 
-const EntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
+const EntryForm: FC = () => {
   const db = useDb();
   const {fields, handleSubmit, reset} = useFormBuilder<Entry>();
 
@@ -17,8 +16,7 @@ const EntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
     <form
       className='flex flex-col gap-2 px-4'
       onSubmit={handleSubmit((entry) => {
-        db.meals.update(meal, {...meal, entries: [...meal.entries, entry]});
-        update();
+        // db.days.update(meal, {...meal, entries: [...meal.entries, entry]});
         reset();
       })}
     >
@@ -38,31 +36,16 @@ const EntryForm: FC<{meal: Meal; update: () => void}> = ({meal, update}) => {
   );
 };
 
-export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
+export const MealForm: FC = () => {
   const {mealId} = useParams();
   const db = useDb();
 
   const {fields, handleSubmit, setValue} = useFormBuilder<Meal>();
 
-  const meal = useLiveQuery(() =>
-    mealId ? db.meals.get(parseInt(mealId)) : undefined,
-  );
-
-  useEffect(() => {
-    if (meal) {
-      setValue('title', meal.title);
-      setValue('date', meal.date);
-    }
-  }, [meal, setValue]);
-
-  if (!meal) return;
+  const meal = useLiveQuery(() => undefined);
 
   const submit = handleSubmit(async ({title, date}) => {
-    const oldDate = meal.date;
-    await db.meals.update(meal.id, {...meal, title, date});
-
-    update(oldDate);
-    update(date);
+    // await db.days.where({date: }).update(meal.id, {...meal, title});
   });
 
   const removeEntry = (entry: Entry) => {
@@ -70,8 +53,6 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
       ...meal,
       entries: [...meal.entries.filter((e) => e !== entry)],
     });
-
-    update(meal.date);
   };
 
   return (
@@ -83,7 +64,7 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
       >
         <p className='text-sm font-thin'>Meal</p>
         <Input field={fields.title()} label='Title' />
-        <DateInput label='Date' on={fields.date} />
+        {/* <DateInput label='Date' on={fields.date} /> */}
       </form>
 
       <div className='flex grow flex-col overflow-hidden border-y pt-4'>
@@ -114,7 +95,7 @@ export const MealForm: FC<{update: (date: Date) => void}> = ({update}) => {
         </div>
       </div>
 
-      <EntryForm meal={meal} update={() => update(meal.date)} />
+      <EntryForm meal={meal} update={() => {}} />
     </div>
   );
 };

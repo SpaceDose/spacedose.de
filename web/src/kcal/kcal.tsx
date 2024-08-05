@@ -1,24 +1,13 @@
-import {
-  type TouchEventHandler,
-  useCallback,
-  useEffect,
-  useState,
-  type FC,
-} from 'react';
+import {useLiveQuery} from 'dexie-react-hooks';
+import {type TouchEventHandler, useEffect, useState, type FC} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {FAB} from '../components/fab';
 import {SlideView} from '../components/slide-view';
 import {Page} from '../page';
 import {type Meal, useDb} from '../provider/database';
-import {
-  getFrom,
-  getKCalForDay,
-  getUntil,
-  isSameDay,
-  readableDate,
-} from '../utils/kcal';
+import {seedExampleData} from '../provider/seeder';
 import {DailyChart} from './components/daily-chart';
-import {MealCard} from './components/meal-card';
+import {DayCard} from './components/day-card';
 import {MealForm} from './components/meal-form';
 
 export type Day = {
@@ -32,37 +21,17 @@ export const Kcal: FC = () => {
   const navigate = useNavigate();
 
   const [maxDays, setMaxDays] = useState<number>(14);
-  const [days, setDays] = useState<Day[]>([]);
 
-  const loadDay = useCallback(
-    async (date: Date) => {
-      const meals = await db.meals
-        .where('date')
-        .between(getFrom(date), getUntil(date))
-        .toArray();
-
-      setDays((days) => [
-        ...days.filter((d) => !isSameDay(d.date, date)),
-        {date, meals},
-      ]);
-    },
-    [db],
-  );
+  const [days, setDays] = useState<[string, Meal[] | undefined][]>([]);
+  const meals = useLiveQuery(() => db.meals.toArray());
 
   useEffect(() => {
-    if (days.length < maxDays) {
-      if (days.length === 0) {
-        loadDay(new Date(Date.now()));
-      } else {
-        const lastDate = new Date(
-          days.sort((a, b) => a.date.getTime() - b.date.getTime())[0].date,
-        );
-        lastDate.setDate(lastDate.getDate() - 1);
-
-        loadDay(lastDate);
-      }
-    }
-  }, [days, loadDay, maxDays]);
+    setDays(
+      Object.entries(
+        Object.groupBy(meals ?? [], (meal) => meal.date.toDateString()),
+      ).sort((a, b) => new Date(b[0]).getTime() - new Date(a[0]).getTime()),
+    );
+  }, [meals]);
 
   const handleScroll: TouchEventHandler<HTMLDivElement> = (e) => {
     if (
@@ -75,56 +44,35 @@ export const Kcal: FC = () => {
 
   return (
     <Page className='flex h-full flex-col items-center justify-between gap-4'>
-      <DailyChart days={days} />
+      <DailyChart days={days.slice(1, 8)} />
 
       <div
         className='flex w-full flex-col overflow-y-auto'
         onTouchMove={handleScroll}
         onScroll={handleScroll}
       >
-        {days
-          ?.sort((a, b) => b.date.getTime() - a.date.getTime())
-          .map((day, index) => (
-            <div
-              key={`${day.date.toISOString()} ${index}`}
-              className='border-t first:border-none'
-            >
-              <div className='flex justify-between px-4 py-2 text-sm text-gray'>
-                <p>{readableDate(day.date)}</p>
-                <p className='font-bold text-purple-light'>
-                  {getKCalForDay(day)} kcal
-                </p>
-              </div>
-
-              {day.meals.map((meal) => (
-                <MealCard
-                  key={meal.id}
-                  meal={meal}
-                  update={() => loadDay(meal.date)}
-                />
-              ))}
-
-              {day.meals.length === 0 && (
-                <div className='p-3 text-gray'>No meals found...</div>
-              )}
-            </div>
-          ))}
+        {days.map(([date, meals]) => (
+          <DayCard key={date} date={date} meals={meals ?? []} />
+        ))}
       </div>
 
       <FAB
         onClick={async () => {
-          const id = await db.meals.add({
-            title: '',
-            date: new Date(Date.now()),
-            entries: [],
-          });
-          loadDay(new Date(Date.now()));
-          navigate(`./${id}`);
+          navigate(`./new`);
         }}
       />
 
+      {import.meta.env.DEV && (
+        <FAB
+          left
+          onClick={async () => {
+            seedExampleData(db);
+          }}
+        />
+      )}
+
       <SlideView show={!!mealId} close={() => navigate(-1)}>
-        <MealForm update={(date) => loadDay(date)} />
+        <MealForm />
       </SlideView>
     </Page>
   );

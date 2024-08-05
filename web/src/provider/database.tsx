@@ -4,6 +4,7 @@ import {Dexie, type EntityTable} from 'dexie';
 import {type ReactNode, createContext, type FC, useContext} from 'react';
 
 export type Entry = {
+  id: number;
   title?: string;
   kcal: number;
   gram: number;
@@ -13,11 +14,12 @@ export type Meal = {
   id: number;
   title: string;
   date: Date;
-  entries: Entry[];
+  entryIds: number[];
 };
 
-interface Schema extends Dexie {
+export interface Schema extends Dexie {
   meals: EntityTable<Meal, 'id'>;
+  entries: EntityTable<Entry, 'id'>;
 }
 
 const DatabaseContext = createContext<Schema | undefined>(undefined);
@@ -38,6 +40,7 @@ export const DatabaseProvider: FC<{children: ReactNode}> = ({children}) => {
   const db = new Dexie('db') as Schema;
   db.version(1).stores({
     meals: '++id, date',
+    entries: '++id',
   });
 
   return (
