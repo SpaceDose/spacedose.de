@@ -1,24 +1,24 @@
-import {useEffect, useState, type FC} from 'react';
-import {type Entry, type Meal, useDb} from '../../provider/database';
-import {getKCalForEntries, readableDate} from '../../utils/kcal';
-import {MealCard} from './meal-card';
+import {useLiveQuery} from 'dexie-react-hooks';
+import {type FC} from 'react';
+import {useDb, type Meal} from '../../../provider/database';
+import {getKCalForEntries, readableDate} from '../../../utils/kcal';
+import {MealDisplay} from './meal-display';
 
 type DayCardProps = {
   date: string;
   meals: Meal[];
 };
 
-export const DayCard: FC<DayCardProps> = ({date, meals}) => {
+export const DayDisplay: FC<DayCardProps> = ({date, meals}) => {
   const db = useDb();
-  const [entries, setEntries] = useState<Entry[]>([]);
-
-  useEffect(() => {
+  const entries = useLiveQuery(() =>
     db.entries
       .where('id')
       .anyOf(meals.flatMap((meal) => meal.entryIds))
-      .toArray()
-      .then((res) => setEntries(res));
-  }, [db.entries, meals]);
+      .toArray(),
+  );
+
+  if (!entries) return;
 
   return (
     <div key={date} className='border-t first:border-none'>
@@ -29,7 +29,7 @@ export const DayCard: FC<DayCardProps> = ({date, meals}) => {
         </p>
       </div>
 
-      {meals?.map((meal) => <MealCard key={meal.id} meal={meal} />)}
+      {meals?.map((meal) => <MealDisplay key={meal.id} meal={meal} />)}
 
       {!meals ||
         (meals?.length === 0 && (

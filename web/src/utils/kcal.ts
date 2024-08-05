@@ -1,33 +1,5 @@
 import {type Entry} from '../provider/database';
 
-export const getKCalFromEntry = (entry: Entry) =>
-  Math.round((entry.kcal * entry.gram) / 100);
-
-export const isSameDay = (date1: Date, date2: Date) =>
-  date1.getDate() === date2.getDate() &&
-  date1.getMonth() === date2.getMonth() &&
-  date1.getFullYear() === date2.getFullYear();
-
-export const getFrom = (date: Date) => {
-  const d = new Date(date);
-
-  d.setHours(0);
-  d.setMinutes(0);
-  d.setSeconds(0);
-
-  return d;
-};
-
-export const getUntil = (date: Date) => {
-  const d = new Date(date);
-
-  d.setHours(23);
-  d.setMinutes(59);
-  d.setSeconds(59);
-
-  return d;
-};
-
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export const readableDate = (date: Date) => {
@@ -62,6 +34,9 @@ export const readableDate = (date: Date) => {
       return dateAsString;
   }
 };
+
+export const getKCalFromEntry = (entry: Entry) =>
+  Math.round((entry.kcal * entry.gram) / 100);
 
 export const getKCalForEntries = (entries: Entry[]) =>
   entries.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0);

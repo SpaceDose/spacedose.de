@@ -19,9 +19,9 @@ export default defineConfig({
         config: true,
       },
       manifest: {
-        name: '⊂(◉‿◉)つ',
-        short_name: '⊂(◉‿◉)つ',
-        description: '⊂(◉‿◉)つ',
+        name: 'SpaceDose',
+        short_name: 'SpaceDose',
+        description: 'Some Awesome Tools',
         theme_color: '#242629',
         background_color: '#242629',
       },

@@ -9,10 +9,10 @@ export const Home: FC = () => (
 
     <div className='flex flex-col'>
       <Link to='/kcal' className='rounded-lg bg-orange-light p-3 text-black'>
-        ⊂(◉‿◉)つ
+        Abspecken
       </Link>
 
-      <p className='self-end px-2 text-sm font-thin'>0.0.9</p>
+      <p className='self-end px-2 text-sm font-thin'>0.1.0</p>
     </div>
   </Page>
 );

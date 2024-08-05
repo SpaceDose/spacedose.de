@@ -12,7 +12,7 @@ export type Entry = {
 
 export type Meal = {
   id: number;
-  title: string;
+  title?: string;
   date: Date;
   entryIds: number[];
 };

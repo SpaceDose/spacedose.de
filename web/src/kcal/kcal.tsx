@@ -7,8 +7,8 @@ import {Page} from '../page';
 import {type Meal, useDb} from '../provider/database';
 import {seedExampleData} from '../provider/seeder';
 import {DailyChart} from './components/daily-chart';
-import {DayCard} from './components/day-card';
-import {MealForm} from './components/meal-form';
+import {DayDisplay} from './components/day-display/day-display';
+import {MealForm} from './components/meal-form/meal-form';
 
 export type Day = {
   date: Date;
@@ -47,18 +47,23 @@ export const Kcal: FC = () => {
       <DailyChart days={days.slice(1, 8)} />
 
       <div
-        className='flex w-full flex-col overflow-y-auto'
+        className='flex w-full grow flex-col overflow-y-auto pb-32'
         onTouchMove={handleScroll}
         onScroll={handleScroll}
       >
         {days.map(([date, meals]) => (
-          <DayCard key={date} date={date} meals={meals ?? []} />
+          <DayDisplay key={date} date={date} meals={meals ?? []} />
         ))}
       </div>
 
       <FAB
         onClick={async () => {
-          navigate(`./new`);
+          const newMealId = await db.meals.add({
+            date: new Date(),
+            entryIds: [],
+          });
+
+          navigate(`./${newMealId}`);
         }}
       />
 
