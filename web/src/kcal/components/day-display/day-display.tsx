@@ -11,11 +11,13 @@ type DayCardProps = {
 
 export const DayDisplay: FC<DayCardProps> = ({date, meals}) => {
   const db = useDb();
-  const entries = useLiveQuery(() =>
-    db.entries
-      .where('id')
-      .anyOf(meals.flatMap((meal) => meal.entryIds))
-      .toArray(),
+  const entries = useLiveQuery(
+    () =>
+      db.entries
+        .where('id')
+        .anyOf(meals.flatMap((meal) => meal.entryIds))
+        .toArray(),
+    [meals],
   );
 
   if (!entries) return;
@@ -25,11 +27,13 @@ export const DayDisplay: FC<DayCardProps> = ({date, meals}) => {
       <div className='flex justify-between px-4 py-2 text-sm text-gray'>
         <p>{readableDate(new Date(date))}</p>
         <p className='font-bold text-purple-light'>
-          {getKCalForEntries(entries)} kcal
+          {entries && `${getKCalForEntries(entries)} kcal`}
         </p>
       </div>
 
-      {meals?.map((meal) => <MealDisplay key={meal.id} meal={meal} />)}
+      {meals?.map((meal) => (
+        <MealDisplay key={meal.id} meal={meal} entries={entries} />
+      ))}
 
       {!meals ||
         (meals?.length === 0 && (

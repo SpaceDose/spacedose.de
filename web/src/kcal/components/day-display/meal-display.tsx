@@ -1,19 +1,16 @@
 import {PencilIcon, TrashIcon} from '@heroicons/react/24/outline';
-import {useLiveQuery} from 'dexie-react-hooks';
 import {type FC} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {SlideRow} from '../../../components/slide-row';
-import {useDb, type Meal} from '../../../provider/database';
-import {getKCalFromEntry} from '../../../utils/kcal';
+import {useDb, type Entry, type Meal} from '../../../provider/database';
+import {getKCalForEntries, getKCalFromEntry} from '../../../utils/kcal';
 
-export const MealDisplay: FC<{meal: Meal}> = ({meal}) => {
+export const MealDisplay: FC<{meal: Meal; entries: Entry[]}> = ({
+  meal,
+  entries,
+}) => {
   const db = useDb();
   const navigate = useNavigate();
-
-  const entries = useLiveQuery(
-    () => db.entries.where('id').anyOf(meal.entryIds).toArray(),
-    [meal],
-  );
 
   return (
     <SlideRow
@@ -30,9 +27,7 @@ export const MealDisplay: FC<{meal: Meal}> = ({meal}) => {
     >
       <div className='flex justify-between px-2 text-sm text-orange-light'>
         <div>{meal.title && meal.title.length > 0 ? meal.title : 'Other'}</div>
-        <div>
-          {entries?.reduce((acc, curr) => acc + getKCalFromEntry(curr), 0)} kcal
-        </div>
+        <div>{entries && `${getKCalForEntries(entries)} kcal`}</div>
       </div>
 
       <div className='px-2'>
