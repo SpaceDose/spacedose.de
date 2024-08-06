@@ -12,7 +12,7 @@ export const Home: FC = () => (
         Abspecken
       </Link>
 
-      <p className='self-end px-2 text-sm font-thin'>0.1.0</p>
+      <p className='self-end px-2 text-sm font-thin'>0.1.1</p>
     </div>
   </Page>
 );
