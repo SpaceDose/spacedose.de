@@ -31,9 +31,7 @@ export const DayDisplay: FC<DayCardProps> = ({date, meals}) => {
         </p>
       </div>
 
-      {meals?.map((meal) => (
-        <MealDisplay key={meal.id} meal={meal} entries={entries} />
-      ))}
+      {meals?.map((meal) => <MealDisplay key={meal.id} meal={meal} />)}
 
       {!meals ||
         (meals?.length === 0 && (
