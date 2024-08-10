@@ -6,7 +6,10 @@ import {SlideRow} from '../../../components/slide-row';
 import {useDb, type Meal} from '../../../provider/database';
 import {getKCalForEntries, getKCalFromEntry} from '../../../utils/kcal';
 
-export const MealDisplay: FC<{meal: Meal}> = ({meal}) => {
+export const MealDisplay: FC<{meal: Meal; hideTitle?: boolean}> = ({
+  meal,
+  hideTitle,
+}) => {
   const db = useDb();
   const navigate = useNavigate();
 
@@ -28,10 +31,14 @@ export const MealDisplay: FC<{meal: Meal}> = ({meal}) => {
         color: 'orange',
       }}
     >
-      <div className='flex justify-between px-2 text-sm text-orange-light'>
-        <div>{meal.title && meal.title.length > 0 ? meal.title : 'Other'}</div>
-        <div>{entries && `${getKCalForEntries(entries)} kcal`}</div>
-      </div>
+      {(!hideTitle || (meal.title && meal.title.length > 0)) && (
+        <div className='flex justify-between px-2 text-sm text-orange-light'>
+          <div>
+            {meal.title && meal.title.length > 0 ? meal.title : 'Other'}
+          </div>
+          <div>{entries && `${getKCalForEntries(entries)} kcal`}</div>
+        </div>
+      )}
 
       <div className='px-2'>
         {entries?.map((entry, index) => (
