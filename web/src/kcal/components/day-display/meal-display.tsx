@@ -37,10 +37,13 @@ export const MealDisplay: FC<{meal: Meal}> = ({meal}) => {
         {entries?.map((entry, index) => (
           <div
             key={`${entry.title}-${index}`}
-            className='flex w-full justify-between text-xs font-thin text-orange-light'
+            className='flex w-full justify-between gap-8 text-xs font-thin text-orange-light'
           >
-            {entry.title && entry.title.length > 0 ? entry.title : '-'}
-            <div>{getKCalFromEntry(entry)} kcal</div>
+            <p className='truncate'>
+              {entry.title && entry.title.length > 0 ? entry.title : '-'}
+            </p>
+
+            <p className='shrink-0'>{getKCalFromEntry(entry)} kcal</p>
           </div>
         ))}
       </div>

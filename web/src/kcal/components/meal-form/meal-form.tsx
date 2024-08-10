@@ -82,12 +82,12 @@ export const MealForm: FC = () => {
                 Icon: PencilIcon,
               }}
             >
-              <div className='flex size-full items-center justify-between px-2'>
-                <div>
+              <div className='flex size-full items-center justify-between gap-8 px-2'>
+                <p className='truncate'>
                   {entry.title && entry.title.length > 0 ? entry.title : '-'}
-                </div>
+                </p>
 
-                <div className='flex flex-col text-right'>
+                <div className='flex shrink-0 flex-col text-right'>
                   <p>{getKCalFromEntry(entry)} kcal</p>
                   <p className='text-xs font-thin text-purple-light'>{`${entry.gram}g / ${entry.kcal}kcal`}</p>
                 </div>
