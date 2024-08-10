@@ -6,6 +6,9 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  define: {
+    VERSION: new Date(),
+  },
   plugins: [
     react({}),
     VitePWA({

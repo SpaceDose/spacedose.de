@@ -11,8 +11,10 @@ export const Home: FC = () => (
       <Link to='/kcal' className='rounded-lg bg-orange-light p-3 text-black'>
         Abspecken
       </Link>
-
-      <p className='self-end px-2 text-sm font-thin'>0.1.1</p>
     </div>
+
+    <p className='absolute bottom-0 right-0 px-2 text-sm font-thin text-orange-light'>
+      Build from {new Date(VERSION).toLocaleString()}
+    </p>
   </Page>
 );
