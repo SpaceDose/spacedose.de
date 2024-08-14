@@ -1,4 +1,4 @@
-import {type Entry} from '../provider/database';
+import {type Entry} from '../kcal/provider/database';
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 

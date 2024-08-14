@@ -7,9 +7,15 @@ export const Home: FC = () => (
   <Page className='items-center gap-24 py-32 text-orange-light'>
     <img src={Logo} className='max-w-1/2 w-56 drop-shadow' />
 
-    <div className='flex flex-col'>
+    <div className='flex flex-col gap-4'>
       <Link to='/kcal' className='rounded-lg bg-orange-light p-3 text-black'>
         Abspecken
+      </Link>
+      <Link
+        to='/dictionary'
+        className='rounded-lg bg-orange-light p-3 text-black'
+      >
+        Spickzettel
       </Link>
     </div>
 

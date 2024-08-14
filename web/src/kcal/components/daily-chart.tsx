@@ -1,6 +1,6 @@
 import {useEffect, useMemo, useState, type FC} from 'react';
 import {Chart, type AxisOptions} from 'react-charts';
-import {useDb, type Meal} from '../../provider/database';
+import {useDb, type Meal} from '../provider/database';
 import {getKCalForEntries} from '../../utils/kcal';
 
 type DateWithKCal = {date: string; kcal: number};

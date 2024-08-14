@@ -1,7 +1,7 @@
 import {useFormBuilder} from '@atmina/formbuilder';
 import {useEffect, type FC} from 'react';
 import {Input} from '../../../components/input';
-import {type Entry, type Meal, useDb} from '../../../provider/database';
+import {type Entry, type Meal, useDb} from '../../provider/database';
 
 type Nullable<T> = {[K in keyof T]: T[K] | null};
 

@@ -1,6 +1,6 @@
 import {useLiveQuery} from 'dexie-react-hooks';
 import {type FC} from 'react';
-import {useDb, type Meal} from '../../../provider/database';
+import {useDb, type Meal} from '../../provider/database';
 import {getKCalForEntries, readableDate} from '../../../utils/kcal';
 import {MealDisplay} from './meal-display';
 

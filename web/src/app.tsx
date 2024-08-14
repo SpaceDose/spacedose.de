@@ -1,8 +1,10 @@
 import {type FC} from 'react';
 import {RouterProvider, createBrowserRouter} from 'react-router-dom';
+import {Dictionary} from './dictionary/dictionary';
+import {DatabaseProvider as DictionaryDatabaseProvide} from './dictionary/provider/database';
 import {Home} from './home';
 import {Kcal} from './kcal/kcal';
-import {DatabaseProvider} from './provider/database';
+import {DatabaseProvider as KcalDatabaseProvider} from './kcal/provider/database';
 
 import '@fontsource/poppins/200.css';
 import '@fontsource/poppins/300.css';
@@ -19,8 +21,20 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
+    path: 'dictionary',
+    element: (
+      <DictionaryDatabaseProvide>
+        <Dictionary />
+      </DictionaryDatabaseProvide>
+    ),
+  },
+  {
     path: 'kcal',
-    element: <Kcal />,
+    element: (
+      <KcalDatabaseProvider>
+        <Kcal />
+      </KcalDatabaseProvider>
+    ),
     children: [
       {
         path: ':mealId',
@@ -30,10 +44,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-const App: FC = () => (
-  <DatabaseProvider>
-    <RouterProvider router={router} />
-  </DatabaseProvider>
-);
+const App: FC = () => <RouterProvider router={router} />;
 
 export default App;
