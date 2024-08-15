@@ -1,6 +1,6 @@
-import {type Entry, type Schema} from './database';
+import {type Vocabulary, type Schema} from './database';
 
-const entries: Omit<Omit<Entry, 'id'>, 'date'>[] = [
+const entries: Omit<Omit<Vocabulary, 'id'>, 'date'>[] = [
   {german: 'Leiter', english: 'letter'},
   {german: 'Fortgeschrittene', english: 'runaways'},
   {german: 'Kittchen', english: 'kitchen'},
@@ -10,14 +10,14 @@ const entries: Omit<Omit<Entry, 'id'>, 'date'>[] = [
 ];
 
 export const seedExampleData = async (db: Schema) => {
-  await db.delete({disableAutoOpen: false});
+  await db.vocabularies.clear();
 
   for (let i = 0; i < 10; i++) {
     const date = new Date();
     date.setDate(date.getDate() - i);
 
     for (let j = 0; j < Math.random() * 2 + 1; j++) {
-      await db.entries.add({
+      await db.vocabularies.add({
         date,
         ...entries[Math.floor(Math.random() * entries.length)],
       });

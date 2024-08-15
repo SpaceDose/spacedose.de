@@ -24,5 +24,5 @@ export default {
     },
     extend: {},
   },
-  plugins: [],
+  plugins: [require('tailwindcss-3d')],
 };

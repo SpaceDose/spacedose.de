@@ -6,7 +6,7 @@ import {useParams} from 'react-router-dom';
 import {DateInput} from '../../../components/date-input';
 import {Input} from '../../../components/input';
 import {SlideRow} from '../../../components/slide-row';
-import {type Entry, type Meal, useDb} from '../../provider/database';
+import {type Entry, type Meal, useDb} from '../../../provider/database';
 import {getKCalFromEntry} from '../../../utils/kcal';
 import {EntryForm} from './entry-form';
 

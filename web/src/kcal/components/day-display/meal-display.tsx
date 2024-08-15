@@ -3,7 +3,7 @@ import {useLiveQuery} from 'dexie-react-hooks';
 import {type FC} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {SlideRow} from '../../../components/slide-row';
-import {useDb, type Meal} from '../../provider/database';
+import {useDb, type Meal} from '../../../provider/database';
 import {getKCalForEntries, getKCalFromEntry} from '../../../utils/kcal';
 
 export const MealDisplay: FC<{meal: Meal; hideTitle?: boolean}> = ({

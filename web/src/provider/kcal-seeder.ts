@@ -18,7 +18,8 @@ const entries: Omit<Entry, 'id'>[] = [
 ];
 
 export const seedExampleData = async (db: Schema) => {
-  await db.delete({disableAutoOpen: false});
+  await db.meals.clear();
+  await db.entries.clear();
 
   for (let i = 0; i < 10; i++) {
     const date = new Date();

@@ -4,11 +4,11 @@ import {useNavigate, useParams} from 'react-router-dom';
 import {FAB} from '../components/fab';
 import {SlideView} from '../components/slide-view';
 import {Page} from '../page';
+import {type Meal, useDb} from '../provider/database';
+import {seedExampleData} from '../provider/kcal-seeder';
 import {DailyChart} from './components/daily-chart';
 import {DayDisplay} from './components/day-display/day-display';
 import {MealForm} from './components/meal-form/meal-form';
-import {type Meal, useDb} from './provider/database';
-import {seedExampleData} from './provider/seeder';
 
 export type Day = {
   date: Date;
