@@ -1,7 +1,6 @@
 services:
   web:
     build:
-      context: ./web/
       dockerfile: Dockerfile
     container_name: spacedose-web
     volumes:
