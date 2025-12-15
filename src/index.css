@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-*: initial;
+
+  --color-transparent: #00000000;
+  --color-black: #242629;
+  --color-gray: #A2A2A2;
+
+  --color-orange-light: #FDF0E7;
+  --color-orange: #E88E51;
+  --color-orange-dark: #B3571A;
+
+  --color-green-light: #C9D69D;
+  --color-green: #9EB353;
+  --color-green-dark: #5C6830;
+
+  --color-purple-light: #BEAFD8;
+  --color-purple: #8368B1;
+  --color-purple-dark: #4F3C70;
+}
+
+html,
+body,
+#root {
+  @apply bg-black h-full overflow-hidden;
+  font-family: 'Poppins';
+}

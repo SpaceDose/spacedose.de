@@ -1,0 +1,21 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"files": {
+		"ignoreUnknown": true,
+		"includes": ["**/*.ts", "**/*.tsx"]
+	},
+	"linter": {
+		"rules": {
+			"recommended": true,
+			"style": {
+				"useSelfClosingElements": "error"
+			},
+			"nursery": {
+				"useSortedClasses": {
+					"level": "info",
+					"fix": "safe"
+				}
+			}
+		}
+	}
+}
