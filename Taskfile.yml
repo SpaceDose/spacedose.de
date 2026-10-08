@@ -1,0 +1,38 @@
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task --list
+    silent: true
+
+  install:
+    desc: Install dependencies
+    cmds:
+      - bun install
+
+  dev:
+    desc: Start the Vite dev server
+    cmds:
+      - bun run dev
+
+  build:
+    desc: Typecheck and build for production
+    cmds:
+      - bun run build
+
+  preview:
+    desc: Preview the production build
+    cmds:
+      - bun run preview
+
+  lint:
+    desc: Format code with Biome
+    cmds:
+      - bun run lint
+
+  assets:
+    desc: Generate PWA assets
+    cmds:
+      - bun run gen-assets
+      

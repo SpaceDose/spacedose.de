@@ -8,7 +8,7 @@ export default defineConfig({
 		port: 3000,
 	},
 	define: {
-		VERSION: new Date(),
+		VERSION: JSON.stringify(new Date().toISOString()),
 	},
 	plugins: [
 		react({}),
