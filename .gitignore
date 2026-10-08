@@ -24,6 +24,5 @@ dev-dist
 *.sln
 *.sw?
 
-Caddyfile
 .yarn
 .DS_Store

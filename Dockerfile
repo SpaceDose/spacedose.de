@@ -1,12 +1,12 @@
-FROM node:lts-alpine AS build
+FROM oven/bun:alpine AS build
 
 WORKDIR /app
 
 COPY bun.lock package.json ./
-RUN bun install
+RUN bun install --frozen-lockfile
 
 COPY . .
-RUN bun build
+RUN bun run build
 
 FROM caddy:2.11-alpine
 
